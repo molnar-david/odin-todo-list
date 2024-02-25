@@ -20,7 +20,7 @@ export default class TodoList {
         this.#todos.push(todo);
     }
 
-    deleteAndReturnTodo(todo) {
+    popTodo(todo) {
         return this.#todos.splice(this.#todos.indexOf(todo), 1);
     }
 }
