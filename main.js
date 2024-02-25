@@ -1,1 +1,1 @@
-console.log("Hello, World!");
+(()=>{"use strict";let t=new class{#t;#o=[];constructor(t){this.#t=t}get title(){return this.#t}get todos(){return this.#o}set addTodo(t){this.#o.push(t)}}("title");t.addTodo(new Todo("title","description","dueDate","priority")),console.log(t.todos[0].description)})();
