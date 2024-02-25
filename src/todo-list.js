@@ -16,7 +16,11 @@ export default class TodoList {
         return this.#todos;
     }
 
-    set addTodo(todo) {
+    addTodo(todo) {
         this.#todos.push(todo);
+    }
+
+    deleteAndReturnTodo(todo) {
+        return this.#todos.splice(this.#todos.indexOf(todo), 1);
     }
 }
