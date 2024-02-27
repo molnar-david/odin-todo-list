@@ -10,7 +10,7 @@ button {
 
 #site-container {
     display: grid;
-    grid-template: 120px auto / 1fr 5fr;
+    grid-template: 120px auto / 1fr 4fr;
     width: 100vw;
     height: 100vh;
 }
@@ -46,6 +46,21 @@ button > i {
 
 #sidebar > h2 {
     padding: 40px 0 24px;
+}
+
+#add-project-container {
+    display: flex;
+    flex-direction: column;
+    background-color: bisque;
+    border-radius: 8px;
+    gap: 8px;
+    padding: 8px 12px;
+}
+
+#add-project-title {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
 }
 
 #content {
@@ -96,8 +111,9 @@ button > i {
     background-image: url("./assets/check-bold.svg");
 }
 
-.todo:hover {
-    background-color: rgb(255, 213, 161);
+.todo:hover,
+.todo > button:hover {
+    filter: brightness(0.8)
 }
 
 .todo.priority-low {
@@ -133,6 +149,93 @@ button > i {
     border-radius: 4px;
 }
 
-.todo > button:hover {
-    filter: brightness(0.8)
+#add-todo-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background-color: goldenrod;
+    padding: 16px;
+    border-radius: 0 8px 8px 0;
+    border-radius: 8px;
+}
+
+#add-todo-form input[type="text"],
+#add-todo-form input[type="date"],
+#add-todo-form textarea {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
+#add-todo-form input[type="date"] {
+    margin-left: 16px;
+}
+
+#add-todo-form > fieldset {
+    display: flex;
+    gap: 16px;
+    border: none;
+}
+
+#add-todo-form legend {
+    float: left;
+}
+
+#add-todo-form input[type="radio"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+#add-todo-form input[type="radio"] + label{
+    border-radius: 8px;
+    padding: 4px 12px;
+}
+
+#add-todo-priority-low + label {
+    border: 2px solid green;
+    color: green;
+}
+
+#add-todo-priority-med + label {
+    border: 2px solid orange;
+    color: orange;
+}
+
+#add-todo-priority-high + label {
+    border: 2px solid red;
+    color: red;
+}
+
+#add-todo-form input[type="radio"]:checked + label{
+    color: white;
+}
+
+#add-todo-priority-low:checked + label {
+    background-color: green;;
+}
+
+#add-todo-priority-med:checked + label {
+    background-color: orange;
+}
+
+#add-todo-priority-high:checked + label {
+    background-color: red;
+}
+
+#add-todo-form input[type="radio"]:focus + label{
+    border: 2px solid white;
+}
+
+#add-todo-form input[type="radio"]:hover + label{
+    cursor: pointer;
+}
+
+#add-todo-btn {
+    font-size: 1.2rem;
+    margin-left: auto;
+    padding: 4px 12px;
+    border: none;
+    border-radius: 8px;
+    border: 1px solid grey;
 }

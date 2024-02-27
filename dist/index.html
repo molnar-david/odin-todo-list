@@ -21,6 +21,10 @@
             <div class="btn-container">
                 <button class="project-btn"><i class="fa-solid fa-list"></i>Project 1</button>
                 <button class="project-btn"><i class="fa-solid fa-list"></i>Project 2</button>
+                <div id="add-project-container">
+                    <div>Add new project:</div>
+                    <input type="text" id="add-project-title" name="add-project-title" placeholder="Title">
+                </div>
             </div>
         </nav>
         <ul id="content">
@@ -48,6 +52,31 @@
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
             </li>
+            <form id="add-todo-form">
+                <div>Add new task:</div>
+                <input type="text" id="add-todo-title" name="add-todo-title" placeholder="Title">
+                <textarea id="add-todo-details" name="add-todo-details" rows="10" placeholder="Details"></textarea>
+                <div>
+                    <label for="add-todo-date">Due date:</label>
+                    <input type="date" id="add-todo-date" name="add-todo-date">
+                </div>
+                <fieldset>
+                    <legend>Priority:</legend>
+                    <div>
+                        <input type="radio" id="add-todo-priority-low" name="add-todo-priority" value="low">
+                        <label for="add-todo-priority-low">LOW</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="add-todo-priority-med" name="add-todo-priority" value="med">
+                        <label for="add-todo-priority-med">MEDIUM</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="add-todo-priority-high" name="add-todo-priority" value="high">
+                        <label for="add-todo-priority-high">HIGH</label>
+                    </div>
+                </fieldset>
+                <input type="button" id="add-todo-btn" value="Add task"></button>
+            </form>
         </ul>
     </div>
 </body>
