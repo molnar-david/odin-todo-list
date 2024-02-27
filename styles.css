@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+#site-container {
+    display: grid;
+    grid-template: 120px auto / 1fr 5fr;
+    width: 100vw;
+    height: 100vh;
+}
+
+#header {
+    background-color: lightblue;
+    grid-column: 1 / -1;
+}
+
+#sidebar {
+    background-color: grey;
+    padding: 20px;
+}
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-container > button {
+    height: 2.4rem;
+    text-align: left;
+    padding-left: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+button > i {
+    padding-right: 12px;
+}
+
+#sidebar > h2 {
+    padding: 40px 0 24px;
+}
+
+#content {
+    background-color: burlywood;
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    gap: 24px;
+}
+
+.todo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: bisque;
+    padding: 16px;
+    gap: 24px;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+}
+
+.todo-checkbox-btn,
+.todo-edit-btn,
+.todo-delete-btn,
+.todo-details-btn {
+    border: none;
+    background-color: inherit;
+}
+
+.todo-checkbox-btn,
+.todo-edit-btn,
+.todo-delete-btn {
+    width: 1.4rem;
+    height: 1.4rem;
+}
+
+.todo-checkbox-btn,
+.todo-details-btn {
+    border: 1px solid grey;
+}
+
+.todo.checked {
+    opacity: 0.5;
+}
+
+.todo.checked > .todo-checkbox-btn {
+    background-color: #87A96B;
+    background-image: url("./assets/check-bold.svg");
+}
+
+.todo:hover {
+    background-color: rgb(255, 213, 161);
+}
+
+.todo.priority-low {
+    border-left: 5px solid green;
+}
+
+.todo.priority-med {
+    border-left: 5px solid orange;
+}
+
+.todo.priority-high {
+    border-left: 5px solid red;
+}
+
+.todo-title {
+    margin-right: auto;
+}
+
+.todo-details-btn {
+    width: 8rem;
+    height: 1.8rem;
+}
+
+.todo-edit-btn {
+    background-image: url("./assets/square-edit-outline.svg");
+}
+
+.todo-delete-btn {
+    background-image: url("./assets/trash-can.svg");
+}
+
+.todo > button {
+    border-radius: 4px;
+}
+
+.todo > button:hover {
+    filter: brightness(0.8)
+}
