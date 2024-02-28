@@ -4,13 +4,17 @@ export default class Todo {
     #dueDate;
     #priority;
     #checked;
+    #project;
+    #index;
 
-    constructor(title, description, dueDate, priority, checked = false){
+    constructor(title, description, dueDate, priority, checked, project, index){
         this.#title = title;
         this.#description = description;
         this.#dueDate = dueDate;
         this.#priority = priority;
         this.#checked = checked;
+        this.#project = project;
+        this.#index = index;
     }
 
     get title() {
@@ -33,6 +37,14 @@ export default class Todo {
         return this.#checked;
     }
 
+    get project() {
+        return this.#project;
+    }
+
+    get index() {
+        return this.#index;
+    }
+
     set title(newTitle) {
         this.#title = newTitle;
     }
@@ -47,6 +59,10 @@ export default class Todo {
 
     set priority(newPriority) {
         this.#priority = newPriority;
+    }
+
+    set index(newIndex) {
+        this.#index = newIndex;
     }
 
     toggleChecked() {

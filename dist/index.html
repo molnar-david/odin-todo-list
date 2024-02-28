@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odin Todo List</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="main.js" defer></script>
 </head>
@@ -28,29 +29,43 @@
             </div>
         </nav>
         <ul id="content">
-            <li class="todo priority-low checked">
+            <h2 id="content-title">All</h2>
+            <!-- data-index will be used to link JavaScript classes with DOM todo elements -->
+            <li class="todo low checked expanded" data-project="" data-index="0">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Wake up</div>
+                <input type="text" class="edit-todo-title hidden" name="edit-todo-title">
                 <button class="todo-details-btn">DETAILS</button>
-                <div class="todo-duedate">Jan 1st</div>
+                <div class="todo-due-date">2024-01-01</div>
+                <input type="date" class="edit-todo-due-date hidden" name="edit-todo-due-date">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
+                <div class="todo-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+                <textarea class="edit-todo-description hidden" name="edit-todo-description"></textarea>
             </li>
-            <li class="todo priority-med">
+            <li class="todo med" data-project="Project 1" data-index="1">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Wash teeth</div>
+                <input type="text" class="edit-todo-title hidden" name="edit-todo-title">
                 <button class="todo-details-btn">DETAILS</button>
-                <div class="todo-duedate">Jan 1st</div>
+                <div class="todo-due-date">2024-02-29</div>
+                <input type="date" class="edit-todo-due-date hidden" name="edit-todo-due-date">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
+                <div class="todo-description">2x a day</div>
+                <textarea class="edit-todo-description hidden" name="edit-todo-description"></textarea>
             </li>
-            <li class="todo priority-high">
+            <li class="todo high" data-project="Project 2" data-index="2">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Brush face</div>
+                <input type="text" class="edit-todo-title hidden" name="edit-todo-title">
                 <button class="todo-details-btn">DETAILS</button>
-                <div class="todo-duedate">Jan 1st</div>
+                <div class="todo-due-date">2024-02-28</div>
+                <input type="date" class="edit-todo-due-date hidden" name="edit-todo-due-date">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
+                <div class="todo-description"></div>
+                <textarea class="edit-todo-description hidden" name="edit-todo-description"></textarea>
             </li>
             <form id="add-todo-form">
                 <div>Add new task:</div>
