@@ -72,14 +72,20 @@ button > i {
 }
 
 .todo {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template: 1rem / auto 1fr auto 9rem auto auto;
+    grid-auto-flow: row;
+    grid-auto-rows: auto;
     align-items: center;
     background-color: bisque;
     padding: 16px;
     gap: 24px;
     border-radius: 0 8px 8px 0;
     cursor: pointer;
+}
+
+.todo-due-date {
+    text-align: center;
 }
 
 .todo-checkbox-btn,
@@ -116,15 +122,15 @@ button > i {
     filter: brightness(0.8)
 }
 
-.todo.priority-low {
+.todo.low {
     border-left: 5px solid green;
 }
 
-.todo.priority-med {
+.todo.med {
     border-left: 5px solid orange;
 }
 
-.todo.priority-high {
+.todo.high {
     border-left: 5px solid red;
 }
 
@@ -149,6 +155,30 @@ button > i {
     border-radius: 4px;
 }
 
+.todo-description {
+    display: none;
+    grid-column: 2 / 3;
+}
+
+.edit-todo-description {
+    grid-column: 2 / 3;
+}
+
+.expanded .todo-description {
+    display: block;
+}
+
+.expanded .todo-description.hidden{
+    display: none;
+}
+
+input,
+textarea {
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+}
+
 #add-todo-form {
     display: flex;
     flex-direction: column;
@@ -157,14 +187,6 @@ button > i {
     padding: 16px;
     border-radius: 0 8px 8px 0;
     border-radius: 8px;
-}
-
-#add-todo-form input[type="text"],
-#add-todo-form input[type="date"],
-#add-todo-form textarea {
-    border: none;
-    border-radius: 4px;
-    padding: 8px 12px;
 }
 
 #add-todo-form input[type="date"] {
@@ -238,4 +260,8 @@ button > i {
     border: none;
     border-radius: 8px;
     border: 1px solid grey;
+}
+
+.hidden {
+    display: none;
 }
