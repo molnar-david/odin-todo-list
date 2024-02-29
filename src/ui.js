@@ -1,21 +1,10 @@
-import Todo from './todo.js';
-import { parse, format, isToday, isThisWeek } from 'date-fns';
+import { format, isToday, isThisWeek } from 'date-fns';
+import Todo, { createTodoFromDiv } from './todo.js';
 
 export default function loadTodos() {
     const todos = Array.from(document.getElementsByClassName("todo"));
     let todoList = [];
-
-    todos.forEach((todo) => {
-        const todoTitle = todo.getElementsByClassName("todo-title")[0].textContent;
-        const todoDescription = todo.getElementsByClassName("todo-description")[0].textContent;
-        const todoDueDate = parse(todo.getElementsByClassName("todo-due-date")[0].textContent, "yyyy-MM-dd", new Date());
-        const todoPriority = todo.classList[1];
-        const todoChecked = todo.classList.contains("checked");
-        const todoProject = todo.dataset.project;
-        const todoIndex = todo.dataset.index;
-
-        todoList.push(new Todo(todoTitle, todoDescription, todoDueDate, todoPriority, todoChecked, todoProject, todoIndex))
-    });
+    todos.forEach((todo) => todoList.push(createTodoFromDiv(todo)));
 
     return todoList;
 }
@@ -31,7 +20,7 @@ export function showTodo(todo) {
     newTodo.classList.add(todo.priority);
     if (todo.checked) newTodo.classList.add("checked");
     newTodo.dataset.project = todo.project;
-    newTodo.dataset.index = todo.index;
+    newTodo.dataset.id = todo.id;
 
     const todoCheckboxBtn = document.createElement("button");
     todoCheckboxBtn.classList.add("todo-checkbox-btn");
@@ -75,6 +64,10 @@ export function showTodo(todo) {
     editTodoDescription.classList.add("hidden");
     editTodoDescription.name = "edit-todo-description";
 
+    const cancelEditBtn = document.createElement("button");
+    cancelEditBtn.classList.add("cancel-edit-btn");
+    cancelEditBtn.classList.add("hidden");
+
     newTodo.appendChild(todoCheckboxBtn);
     newTodo.appendChild(todoTitle);
     newTodo.appendChild(editTodoTitle);
@@ -85,6 +78,7 @@ export function showTodo(todo) {
     newTodo.appendChild(todoDeleteBtn);
     newTodo.appendChild(todoDescription);
     newTodo.appendChild(editTodoDescription);
+    newTodo.appendChild(cancelEditBtn);
 
     const content = document.getElementById("content");
     const addTodoForm = document.getElementById("add-todo-form");
@@ -92,14 +86,14 @@ export function showTodo(todo) {
 }
 
 export function showAllTodos(todoList) {
-    document.getElementById("content-title").textContent = "All";
+    document.getElementById("project-title").textContent = "All";
     removeAllTodos();
 
     todoList.forEach((todo) => showTodo(todo));
 }
 
 export function showTodosToday(todoList) {
-    document.getElementById("content-title").textContent = "Today";
+    document.getElementById("project-title").textContent = "Today";
     removeAllTodos();
 
     todoList.forEach((todo) => {
@@ -110,7 +104,7 @@ export function showTodosToday(todoList) {
 }
 
 export function showTodosThisWeek(todoList) {
-    document.getElementById("content-title").textContent = "This Week";
+    document.getElementById("project-title").textContent = "This Week";
     removeAllTodos();
 
     todoList.forEach((todo) => {
@@ -121,7 +115,7 @@ export function showTodosThisWeek(todoList) {
 }
 
 export function showTodosForProject(todoList, project) {
-    document.getElementById("content-title").textContent = project;
+    document.getElementById("project-title").textContent = project;
     removeAllTodos();
 
     todoList.forEach((todo) => {

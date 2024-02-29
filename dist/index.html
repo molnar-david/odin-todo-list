@@ -14,71 +14,78 @@
         <h1 id="header">Todo List</h1>
         <nav id="sidebar">
             <div class="btn-container">
-                <button id="all-btn" class="base-btn"><i class="fa-solid fa-inbox"></i>All</button>
-                <button id="today-btn" class="base-btn"><i class="fa-solid fa-calendar-day"></i>Today</button>
-                <button id="week-btn" class="base-btn"><i class="fa-solid fa-calendar-week"></i>This week</button>
+                <button id="all-btn" class="base-btn"><i class="fa-solid fa-inbox"></i><span>All</span></button>
+                <button id="today-btn" class="base-btn"><i class="fa-solid fa-calendar-day"></i><span>Today</span></button>
+                <button id="week-btn" class="base-btn"><i class="fa-solid fa-calendar-week"></i><span>This week</span></button>
             </div>
             <h2>Projects</h2>
             <div class="btn-container">
-                <button class="project-btn"><i class="fa-solid fa-list"></i>Project 1</button>
-                <button class="project-btn"><i class="fa-solid fa-list"></i>Project 2</button>
+                <button class="project-btn"><i class="fa-solid fa-list"></i><span>Project 1</span><i class="fa-solid fa-trash delete-project-btn"></i></button>
+                <button class="project-btn"><i class="fa-solid fa-list"></i><span>Project 2</span><i class="fa-solid fa-trash delete-project-btn"></i></button>
                 <div id="add-project-container">
                     <div>Add new project:</div>
-                    <input type="text" id="add-project-title" name="add-project-title" placeholder="Title">
+                    <div id="add-project-input-container">
+                        <input type="text" id="add-project-title" placeholder="Title">
+                        <button id="confirm-project-btn"></button>
+                    </div>
+                    <div id="add-project-error-msg" class="hidden"></div>
                 </div>
             </div>
         </nav>
         <ul id="content">
-            <h2 id="content-title">All</h2>
-            <!-- data-index will be used to link JavaScript classes with DOM todo elements -->
-            <li class="todo low checked expanded" data-project="" data-index="0">
+            <h2 id="project-title">All</h2>
+            <!-- data-id will be used to link JavaScript classes with DOM todo elements -->
+            <li class="todo low checked" data-project="" data-id="0">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Wake up</div>
-                <input type="text" class="edit-todo-title hidden" name="edit-todo-title">
+                <input type="text" class="edit-todo-title hidden">
                 <button class="todo-details-btn">DETAILS</button>
                 <div class="todo-due-date">2024-01-01</div>
-                <input type="date" class="edit-todo-due-date hidden" name="edit-todo-due-date">
+                <input type="date" class="edit-todo-due-date hidden">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
                 <div class="todo-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                <textarea class="edit-todo-description hidden" name="edit-todo-description"></textarea>
+                <textarea class="edit-todo-description hidden"></textarea>
+                <button class="cancel-edit-btn hidden">CANCEL</button>
             </li>
-            <li class="todo med" data-project="Project 1" data-index="1">
+            <li class="todo med" data-project="Project 1" data-id="1">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Wash teeth</div>
-                <input type="text" class="edit-todo-title hidden" name="edit-todo-title">
+                <input type="text" class="edit-todo-title hidden">
                 <button class="todo-details-btn">DETAILS</button>
                 <div class="todo-due-date">2024-02-29</div>
-                <input type="date" class="edit-todo-due-date hidden" name="edit-todo-due-date">
+                <input type="date" class="edit-todo-due-date hidden">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
                 <div class="todo-description">2x a day</div>
-                <textarea class="edit-todo-description hidden" name="edit-todo-description"></textarea>
+                <textarea class="edit-todo-description hidden"></textarea>
+                <button class="cancel-edit-btn hidden">CANCEL</button>
             </li>
-            <li class="todo high" data-project="Project 2" data-index="2">
+            <li class="todo high" data-project="Project 2" data-id="2">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Brush face</div>
-                <input type="text" class="edit-todo-title hidden" name="edit-todo-title">
+                <input type="text" class="edit-todo-title hidden">
                 <button class="todo-details-btn">DETAILS</button>
                 <div class="todo-due-date">2024-02-28</div>
-                <input type="date" class="edit-todo-due-date hidden" name="edit-todo-due-date">
+                <input type="date" class="edit-todo-due-date hidden">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
                 <div class="todo-description"></div>
-                <textarea class="edit-todo-description hidden" name="edit-todo-description"></textarea>
+                <textarea class="edit-todo-description hidden"></textarea>
+                <button class="cancel-edit-btn hidden">CANCEL</button>
             </li>
             <form id="add-todo-form">
                 <div>Add new task:</div>
-                <input type="text" id="add-todo-title" name="add-todo-title" placeholder="Title">
-                <textarea id="add-todo-details" name="add-todo-details" rows="10" placeholder="Details"></textarea>
+                <input type="text" id="add-todo-title" name="add-todo-title" placeholder="Title" required>
+                <textarea id="add-todo-details" name="add-todo-details" rows="10" placeholder="Details" required></textarea>
                 <div>
                     <label for="add-todo-date">Due date:</label>
-                    <input type="date" id="add-todo-date" name="add-todo-date">
+                    <input type="date" id="add-todo-date" name="add-todo-date" required>
                 </div>
                 <fieldset>
                     <legend>Priority:</legend>
                     <div>
-                        <input type="radio" id="add-todo-priority-low" name="add-todo-priority" value="low">
+                        <input type="radio" id="add-todo-priority-low" name="add-todo-priority" value="low" required>
                         <label for="add-todo-priority-low">LOW</label>
                     </div>
                     <div>

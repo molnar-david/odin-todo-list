@@ -1,3 +1,5 @@
+import { parse } from "date-fns";
+
 export default class Todo {
     #title;
     #description;
@@ -5,16 +7,16 @@ export default class Todo {
     #priority;
     #checked;
     #project;
-    #index;
+    #id;
 
-    constructor(title, description, dueDate, priority, checked, project, index){
+    constructor(title, description, dueDate, priority, checked, project, id){
         this.#title = title;
         this.#description = description;
         this.#dueDate = dueDate;
         this.#priority = priority;
         this.#checked = checked;
         this.#project = project;
-        this.#index = index;
+        this.#id = id;
     }
 
     get title() {
@@ -41,8 +43,8 @@ export default class Todo {
         return this.#project;
     }
 
-    get index() {
-        return this.#index;
+    get id() {
+        return this.#id;
     }
 
     set title(newTitle) {
@@ -61,11 +63,23 @@ export default class Todo {
         this.#priority = newPriority;
     }
 
-    set index(newIndex) {
-        this.#index = newIndex;
+    set id(newId) {
+        this.#id = newId;
     }
 
     toggleChecked() {
         this.#checked = !this.#checked
     }
+}
+
+export function createTodoFromDiv (todoDiv){
+    const todoTitle = todoDiv.getElementsByClassName("todo-title")[0].textContent;
+    const todoDescription = todoDiv.getElementsByClassName("todo-description")[0].textContent;
+    const todoDueDate = parse(todoDiv.getElementsByClassName("todo-due-date")[0].textContent, "yyyy-MM-dd", new Date());
+    const todoPriority = todoDiv.classList[1];
+    const todoChecked = todoDiv.classList.contains("checked");
+    const todoProject = todoDiv.dataset.project;
+    const todoId = todoDiv.dataset.id;
+
+    return new Todo(todoTitle, todoDescription, todoDueDate, todoPriority, todoChecked, todoProject, todoId);
 }
