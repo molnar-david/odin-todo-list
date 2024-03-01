@@ -14,7 +14,7 @@ export function removeAllTodos() {
     todos.forEach((todo) => todo.remove());
 }
 
-export function showTodo(todo) {
+export function showAndReturnTodo(todo) {
     const newTodo = document.createElement("li");
     newTodo.classList.add("todo");
     newTodo.classList.add(todo.priority);
@@ -29,11 +29,11 @@ export function showTodo(todo) {
     todoTitle.classList.add("todo-title");
     todoTitle.textContent = todo.title;
 
-    const editTodoTitle = document.createElement("input");
-    editTodoTitle.type = "text";
-    editTodoTitle.classList.add("edit-todo-title");
-    editTodoTitle.classList.add("hidden");
-    editTodoTitle.name = "edit-todo-title";
+    const todoEditTitle = document.createElement("input");
+    todoEditTitle.type = "text";
+    todoEditTitle.classList.add("todo-edit-title");
+    todoEditTitle.classList.add("hidden");
+    todoEditTitle.name = "todo-edit-title";
 
     const todoDetailsBtn = document.createElement("button");
     todoDetailsBtn.classList.add("todo-details-btn");
@@ -43,11 +43,11 @@ export function showTodo(todo) {
     todoDueDate.classList.add("todo-due-date");
     todoDueDate.textContent = format(todo.dueDate, "yyyy-MM-dd");
 
-    const editTodoDueDate = document.createElement("input");
-    editTodoDueDate.type = "date";
-    editTodoDueDate.classList.add("edit-todo-due-date");
-    editTodoDueDate.classList.add("hidden");
-    editTodoDueDate.name = "edit-todo-due-date";
+    const todoEditDueDate = document.createElement("input");
+    todoEditDueDate.type = "date";
+    todoEditDueDate.classList.add("todo-edit-due-date");
+    todoEditDueDate.classList.add("hidden");
+    todoEditDueDate.name = "todo-edit-due-date";
 
     const todoEditBtn = document.createElement("button");
     todoEditBtn.classList.add("todo-edit-btn");
@@ -59,38 +59,41 @@ export function showTodo(todo) {
     todoDescription.classList.add("todo-description");
     todoDescription.textContent = todo.description;
 
-    const editTodoDescription = document.createElement("textarea");
-    editTodoDescription.classList.add("edit-todo-description");
-    editTodoDescription.classList.add("hidden");
-    editTodoDescription.name = "edit-todo-description";
+    const todoEditDescription = document.createElement("textarea");
+    todoEditDescription.classList.add("todo-edit-description");
+    todoEditDescription.classList.add("hidden");
+    todoEditDescription.name = "todo-edit-description";
 
     const cancelEditBtn = document.createElement("button");
-    cancelEditBtn.classList.add("cancel-edit-btn");
+    cancelEditBtn.classList.add("todo-cancel-edit-btn");
     cancelEditBtn.classList.add("hidden");
     cancelEditBtn.textContent = "CANCEL";
 
     newTodo.appendChild(todoCheckboxBtn);
     newTodo.appendChild(todoTitle);
-    newTodo.appendChild(editTodoTitle);
+    newTodo.appendChild(todoEditTitle);
     newTodo.appendChild(todoDetailsBtn);
     newTodo.appendChild(todoDueDate);
-    newTodo.appendChild(editTodoDueDate);
+    newTodo.appendChild(todoEditDueDate);
     newTodo.appendChild(todoEditBtn);
     newTodo.appendChild(todoDeleteBtn);
     newTodo.appendChild(todoDescription);
-    newTodo.appendChild(editTodoDescription);
+    newTodo.appendChild(todoEditDescription);
     newTodo.appendChild(cancelEditBtn);
 
     const content = document.getElementById("content");
     const addTodoForm = document.getElementById("add-todo-form");
     content.insertBefore(newTodo, addTodoForm);
+
+    return newTodo;
 }
 
 export function showAllTodos(todoList) {
     document.getElementById("project-title").textContent = "All";
     removeAllTodos();
 
-    todoList.forEach((todo) => showTodo(todo));
+    todoList.forEach((todo) => showAndReturnTodo(todo));
+    return;
 }
 
 export function showTodosToday(todoList) {
@@ -99,9 +102,10 @@ export function showTodosToday(todoList) {
 
     todoList.forEach((todo) => {
         if (isToday(todo.dueDate)) {
-            showTodo(todo);
+            showAndReturnTodo(todo);
         }
     });
+    return;
 }
 
 export function showTodosThisWeek(todoList) {
@@ -110,9 +114,10 @@ export function showTodosThisWeek(todoList) {
 
     todoList.forEach((todo) => {
         if (isThisWeek(todo.dueDate)) {
-            showTodo(todo);
+            showAndReturnTodo(todo);
         }
     });
+    return;
 }
 
 export function showTodosForProject(todoList, project) {
@@ -121,7 +126,8 @@ export function showTodosForProject(todoList, project) {
 
     todoList.forEach((todo) => {
         if (todo.project === project) {
-            showTodo(todo);
+            showAndReturnTodo(todo);
         }
     })
+    return;
 }
