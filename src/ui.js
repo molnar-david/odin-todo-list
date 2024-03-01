@@ -1,10 +1,10 @@
 import { format, isToday, isThisWeek } from 'date-fns';
-import Todo, { createTodoFromDiv } from './todo.js';
+import Todo from './todo.js';
 
 export default function loadTodos() {
     const todos = Array.from(document.getElementsByClassName("todo"));
     let todoList = [];
-    todos.forEach((todo) => todoList.push(createTodoFromDiv(todo)));
+    todos.forEach((todo) => todoList.push(Todo.createTodoFromDiv(todo)));
 
     return todoList;
 }

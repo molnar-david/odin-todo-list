@@ -1,5 +1,5 @@
 import { parse } from 'date-fns';
-import { createTodoFromDiv } from './todo.js';
+import Todo from './todo.js'
 import loadTodos, { showAllTodos, showTodosToday, showTodosThisWeek, showTodosForProject } from './ui.js';
 
 function deleteTodo(todo) {
@@ -102,7 +102,7 @@ function initContentBtns() {
     const todoDeleteBtns = Array.from(document.getElementsByClassName("todo-delete-btn"));
     todoDeleteBtns.forEach((btn) => btn.addEventListener("click", (e) => {
         e.stopPropagation();
-        deleteTodo(createTodoFromDiv(btn.parentElement));
+        deleteTodo(Todo.createTodoFromDiv(btn.parentElement));
     }));
 
     const cancelEditBtns = Array.from(document.getElementsByClassName("cancel-edit-btn"));

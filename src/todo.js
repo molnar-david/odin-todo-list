@@ -70,16 +70,16 @@ export default class Todo {
     toggleChecked() {
         this.#checked = !this.#checked;
     }
-}
 
-export function createTodoFromDiv (todoDiv){
-    const todoTitle = todoDiv.getElementsByClassName("todo-title")[0].textContent;
-    const todoDescription = todoDiv.getElementsByClassName("todo-description")[0].textContent;
-    const todoDueDate = parse(todoDiv.getElementsByClassName("todo-due-date")[0].textContent, "yyyy-MM-dd", new Date());
-    const todoPriority = todoDiv.classList[1];
-    const todoChecked = todoDiv.classList.contains("checked");
-    const todoProject = todoDiv.dataset.project;
-    const todoId = todoDiv.dataset.id;
+    static createTodoFromDiv (todoDiv){
+        const todoTitle = todoDiv.getElementsByClassName("todo-title")[0].textContent;
+        const todoDescription = todoDiv.getElementsByClassName("todo-description")[0].textContent;
+        const todoDueDate = parse(todoDiv.getElementsByClassName("todo-due-date")[0].textContent, "yyyy-MM-dd", new Date());
+        const todoPriority = todoDiv.classList[1];
+        const todoChecked = todoDiv.classList.contains("checked");
+        const todoProject = todoDiv.dataset.project;
+        const todoId = todoDiv.dataset.id;
 
-    return new Todo(todoTitle, todoDescription, todoDueDate, todoPriority, todoChecked, todoProject, todoId);
+        return new Todo(todoTitle, todoDescription, todoDueDate, todoPriority, todoChecked, todoProject, todoId);
+    }
 }
