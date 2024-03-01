@@ -29,7 +29,7 @@ function initContentBtns() {
 
         // Toggle "checked" on the class represantation as well
         todoList.forEach((todoItem) => {
-            if (todoItem.id === todo.id) {
+            if (todoItem.id === todo.dataset.id) {
                 todoItem.toggleChecked();
             }
         });

@@ -68,7 +68,7 @@ export default class Todo {
     }
 
     toggleChecked() {
-        this.#checked = !this.#checked
+        this.#checked = !this.#checked;
     }
 }
 

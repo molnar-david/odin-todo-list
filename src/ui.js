@@ -67,6 +67,7 @@ export function showTodo(todo) {
     const cancelEditBtn = document.createElement("button");
     cancelEditBtn.classList.add("cancel-edit-btn");
     cancelEditBtn.classList.add("hidden");
+    cancelEditBtn.textContent = "CANCEL";
 
     newTodo.appendChild(todoCheckboxBtn);
     newTodo.appendChild(todoTitle);
