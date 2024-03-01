@@ -10,8 +10,7 @@ function deleteTodo(todo) {
         if (todoDiv.dataset.id === todo.id) {
             todoDiv.remove();
             for (const i in todoList) {
-                if (todoList[i].id === todo.id)
-                todoList.splice(i, 1);
+                if (todoList[i].id === todo.id) todoList.splice(i, 1);
             }
         }
     });
@@ -150,11 +149,13 @@ function initProjectBtn(btn) {
     Array.from(btn.getElementsByClassName("delete-project-btn"))[0].addEventListener("click", (e) => {
         e.stopPropagation();
 
-        todoList.forEach((todo) => {
-            if (todo.project === btn.textContent) {
-                deleteTodo(todo);
+        for (let i = 0; i < todoList.length; i++) {
+            if (todoList[i].project === btn.textContent) {
+                deleteTodo(todoList[i]);
+                i--;
             }
-        });
+            console.log(todoList);
+        };
         btn.remove();
         
         if (btn.textContent === currentProject) {
@@ -274,9 +275,9 @@ function initContentForm() {
 
         let newTodoId;
         if (todoList.length) {
-            newTodoId = parseInt(todoList.at(-1).id)+ 1;
+            newTodoId = (parseInt(todoList.at(-1).id)+ 1).toString();
         } else {
-            newTodoId = 0;
+            newTodoId = "0";
         }
 
         const addTodoErrorMsg = document.getElementById("add-todo-error-msg");
