@@ -11,13 +11,14 @@ button {
 #site-container {
     display: grid;
     grid-template: 120px auto / 1fr 4fr;
-    width: 100vw;
     height: 100vh;
+    background-color: lightblue;
 }
 
-#header {
-    background-color: lightblue;
+h1 {
     grid-column: 1 / -1;
+    align-self: end;
+    padding: 20px;
 }
 
 #sidebar {
@@ -111,8 +112,11 @@ button > i {
     background-color: white;
 }
 
-#add-project-error-msg {
+.error-msg {
     color: red;
+}
+
+#add-project-error-msg {
     font-size: 0.8rem;
     padding-left: 12px;
 }
@@ -144,15 +148,15 @@ button > i {
     display: none;
 }
 
-.todo.editing > .edit-todo-title,
-.todo.editing > .edit-todo-due-date,
-.todo.editing > .edit-todo-description,
-.todo.editing > .cancel-edit-btn {
+.todo.editing > .todo-edit-title,
+.todo.editing > .todo-edit-due-date,
+.todo.editing.expanded > .todo-edit-description,
+.todo.editing > .todo-cancel-edit-btn {
     display: block;
 }
 
-.todo.editing > .edit-todo-title,
-.todo.editing > .edit-todo-description {
+.todo.editing > .todo-edit-title,
+.todo.editing > .todo-edit-description {
     justify-self: stretch;
 }
 
@@ -243,7 +247,7 @@ button > i {
     overflow: scroll;
 }
 
-.edit-todo-description {
+.todo-edit-description {
     grid-column: 2 / 3;
 }
 
@@ -251,7 +255,7 @@ button > i {
     display: block;
 }
 
-.cancel-edit-btn {
+.todo-cancel-edit-btn {
     grid-column: 5  / 7;
     border: none;
     border: 1px solid grey;
@@ -274,7 +278,7 @@ textarea {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background-color: goldenrod;
+    background-color: gainsboro;
     padding: 16px;
     border-radius: 0 8px 8px 0;
     border-radius: 8px;
@@ -344,10 +348,15 @@ textarea {
     cursor: pointer;
 }
 
+#add-todo-form-footer {
+    display: flex;
+    align-items: center;
+}
+
 #add-todo-btn {
     font-size: 1.2rem;
-    margin-left: auto;
     padding: 4px 12px;
+    margin-left: auto;
     border: none;
     border-radius: 8px;
     border: 1px solid grey;

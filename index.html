@@ -11,7 +11,7 @@
 </head>
 <body>
     <div id="site-container">
-        <h1 id="header">Todo List</h1>
+        <h1>Todo List</h1>
         <nav id="sidebar">
             <div class="btn-container">
                 <button id="all-btn" class="base-btn"><i class="fa-solid fa-inbox"></i><span>All</span></button>
@@ -28,7 +28,7 @@
                         <input type="text" id="add-project-title" placeholder="Title">
                         <button id="confirm-project-btn"></button>
                     </div>
-                    <div id="add-project-error-msg" class="hidden"></div>
+                    <div id="add-project-error-msg" class="error-msg hidden"></div>
                 </div>
             </div>
         </nav>
@@ -38,52 +38,52 @@
             <li class="todo low checked" data-project="" data-id="0">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Wake up</div>
-                <input type="text" class="edit-todo-title hidden">
+                <input type="text" class="todo-edit-title hidden">
                 <button class="todo-details-btn">DETAILS</button>
                 <div class="todo-due-date">2024-01-01</div>
-                <input type="date" class="edit-todo-due-date hidden">
+                <input type="date" class="todo-edit-due-date hidden" max="9999-12-31">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
                 <div class="todo-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
-                <textarea class="edit-todo-description hidden"></textarea>
-                <button class="cancel-edit-btn hidden">CANCEL</button>
+                <textarea class="todo-edit-description hidden"></textarea>
+                <button class="todo-cancel-edit-btn hidden">CANCEL</button>
             </li>
             <li class="todo med" data-project="Project 1" data-id="1">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Wash teeth</div>
-                <input type="text" class="edit-todo-title hidden">
+                <input type="text" class="todo-edit-title hidden">
                 <button class="todo-details-btn">DETAILS</button>
                 <div class="todo-due-date">2024-02-29</div>
-                <input type="date" class="edit-todo-due-date hidden">
+                <input type="date" class="todo-edit-due-date hidden" max="9999-12-31">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
                 <div class="todo-description">2x a day</div>
-                <textarea class="edit-todo-description hidden"></textarea>
-                <button class="cancel-edit-btn hidden">CANCEL</button>
+                <textarea class="todo-edit-description hidden"></textarea>
+                <button class="todo-cancel-edit-btn hidden">CANCEL</button>
             </li>
             <li class="todo high" data-project="Project 2" data-id="2">
                 <button class="todo-checkbox-btn"></button>
                 <div class="todo-title">Brush face</div>
-                <input type="text" class="edit-todo-title hidden">
+                <input type="text" class="todo-edit-title hidden">
                 <button class="todo-details-btn">DETAILS</button>
                 <div class="todo-due-date">2024-02-28</div>
-                <input type="date" class="edit-todo-due-date hidden">
+                <input type="date" class="todo-edit-due-date hidden" max="9999-12-31">
                 <button class="todo-edit-btn"></button>
                 <button class="todo-delete-btn"></button>
                 <div class="todo-description"></div>
-                <textarea class="edit-todo-description hidden"></textarea>
-                <button class="cancel-edit-btn hidden">CANCEL</button>
+                <textarea class="todo-edit-description hidden"></textarea>
+                <button class="todo-cancel-edit-btn hidden">CANCEL</button>
             </li>
             <form id="add-todo-form">
                 <div>Add new task:</div>
-                <input type="text" id="add-todo-title" name="add-todo-title" placeholder="Title" required>
-                <textarea id="add-todo-details" name="add-todo-details" rows="10" placeholder="Details" required></textarea>
+                <input type="text" id="add-todo-title" name="add-todo-title" placeholder="Title (required)" required>
+                <textarea id="add-todo-description" name="add-todo-description" rows="10" placeholder="Description (optional)"></textarea>
                 <div>
-                    <label for="add-todo-date">Due date:</label>
-                    <input type="date" id="add-todo-date" name="add-todo-date" required>
+                    <label for="add-todo-due-date">Due date (required):</label>
+                    <input type="date" id="add-todo-due-date" name="add-todo-due-date" required>
                 </div>
                 <fieldset>
-                    <legend>Priority:</legend>
+                    <legend>Priority (required):</legend>
                     <div>
                         <input type="radio" id="add-todo-priority-low" name="add-todo-priority" value="low" required>
                         <label for="add-todo-priority-low">LOW</label>
@@ -97,7 +97,10 @@
                         <label for="add-todo-priority-high">HIGH</label>
                     </div>
                 </fieldset>
-                <input type="button" id="add-todo-btn" value="Add todo"></button>
+                <div id="add-todo-form-footer">
+                    <div id="add-todo-error-msg" class="error-msg hidden">Please fill out all required fields</div>
+                    <input type="button" id="add-todo-btn" value="Add todo"></button>
+                </div>
             </form>
         </ul>
     </div>
