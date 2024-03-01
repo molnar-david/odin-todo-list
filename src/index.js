@@ -6,14 +6,28 @@ import loadTodos, { showAndReturnTodo, showAllTodos, showTodosToday, showTodosTh
 function deleteTodo(todo) {
     const todoDivs = Array.from(document.getElementsByClassName("todo"));
 
+    let foundTodoDiv = false;
     todoDivs.forEach((todoDiv) =>  {
-        if (todoDiv.dataset.id === todo.id) {
+        if (foundTodoDiv) {
+            todoDiv.dataset.id = (parseInt(todoDiv.dataset.id) - 1).toString();
+        } else if (todoDiv.dataset.id === todo.id) {
+            foundTodoDiv = true;
             todoDiv.remove();
-            for (const i in todoList) {
-                if (todoList[i].id === todo.id) todoList.splice(i, 1);
+
+            let foundTodo = false;
+            for (let i = 0; i < todoList.length; i++) {
+                if (todoList[i].id === todo.id && !foundTodo) {
+                    foundTodo = true;
+                    todoList.splice(i, 1);
+                }
+
+                if (foundTodo && i < todoList.length) {
+                    todoList[i].id = (parseInt(todoList[i].id) - 1).toString();
+                }
             }
         }
     });
+    console.log(todoList);
 }
 
 function initContentBtn(btn) {
@@ -154,7 +168,6 @@ function initProjectBtn(btn) {
                 deleteTodo(todoList[i]);
                 i--;
             }
-            console.log(todoList);
         };
         btn.remove();
         
