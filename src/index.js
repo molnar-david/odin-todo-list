@@ -27,7 +27,6 @@ function deleteTodo(todo) {
             }
         }
     });
-    console.log(todoList);
 }
 
 function initContentBtn(btn) {
@@ -269,18 +268,26 @@ function initContentForm() {
     addTodoBtn.addEventListener("click", (e) => {
         e.preventDefault();
 
-        const newTodoTitle = document.getElementById("add-todo-title").value;
-        const newTodoDescription = document.getElementById("add-todo-description").value;
+        const addTodoTitle = document.getElementById("add-todo-title");
+        const newTodoTitle = addTodoTitle.value;
 
+        const addTodoDescription = document.getElementById("add-todo-description")
+        const newTodoDescription = addTodoDescription.value;
+
+        const addTodoDueDate = document.getElementById("add-todo-due-date");
         let newTodoDueDate;
-        if (document.getElementById("add-todo-due-date").value) {
-            newTodoDueDate = parse(document.getElementById("add-todo-due-date").value, "yyyyyy-MM-dd", new Date());
+        if (addTodoDueDate.value) {
+            newTodoDueDate = parse(addTodoDueDate.value, "yyyyyy-MM-dd", new Date());
         }
         let newTodoPriority;
 
+        let addTodoPriority;
         const addTodoPriorities = Array.from(document.querySelectorAll("input[name=add-todo-priority"));
         addTodoPriorities.forEach((priority) => {
-            if (priority.checked) newTodoPriority = priority.value;
+            if (priority.checked) {
+                newTodoPriority = priority.value;
+                addTodoPriority = priority;
+            }
         });
 
         const newTodoChecked = false;
@@ -299,6 +306,11 @@ function initContentForm() {
             todoList.push(newTodo);
             initContentBtn(showAndReturnTodo(newTodo));
             addTodoErrorMsg.classList.add("hidden");
+
+            addTodoTitle.value = "";
+            addTodoDescription.value = "";
+            addTodoDueDate.value = "";
+            addTodoPriority.checked = false;
         } else {
             addTodoErrorMsg.classList.remove("hidden");
         }
