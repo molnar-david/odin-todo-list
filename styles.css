@@ -48,12 +48,12 @@ h1 {
     flex-grow: 1;
 }
 
-.delete-project-btn {
+.project-delete-btn {
     background-color: white;
     padding: 2px;
 }
 
-.delete-project-btn:hover {
+.project-delete-btn:hover {
     filter: brightness(0.8);
     border-radius: 4px;
 }
@@ -66,7 +66,7 @@ button > i {
     padding: 40px 0 24px;
 }
 
-#add-project-container {
+#project-add-container {
     display: flex;
     flex-direction: column;
     background-color: bisque;
@@ -75,24 +75,24 @@ button > i {
     padding: 8px 20px 8px 12px;
 }
 
-#add-project-title {
+#project-add-title {
     border: none;
     border-radius: 4px;
     padding: 8px calc(12px + 1.4rem + 8px) 8px 12px;
     margin-right: -8px;
 }
 
-#add-project-title:focus {
+#project-add-title:focus {
     margin-right: -12px;
 }
 
-#add-project-input-container {
+#project-add-input-container {
     display: flex;
     align-items: center;
     gap: 4px;
 }
 
-#add-project-title:focus ~ button {
+#project-add-title:focus ~ button {
     display: block;
 }
 
@@ -107,7 +107,7 @@ button > i {
     margin-left: -1.4rem;
 }
 
-#add-project-title {
+#project-add-title {
     flex-grow: 1;
     background-color: white;
 }
@@ -116,7 +116,7 @@ button > i {
     color: red;
 }
 
-#add-project-error-msg {
+#project-add-error-msg {
     font-size: 0.8rem;
     padding-left: 12px;
 }
@@ -274,7 +274,7 @@ textarea {
     padding: 8px 12px;
 }
 
-#add-todo-form {
+#todo-add-form {
     display: flex;
     flex-direction: column;
     gap: 16px;
@@ -284,76 +284,76 @@ textarea {
     border-radius: 8px;
 }
 
-#add-todo-form input[type="date"] {
+#todo-add-form input[type="date"] {
     margin-left: 16px;
 }
 
-#add-todo-form > fieldset {
+#todo-add-form > fieldset {
     display: flex;
     gap: 16px;
     border: none;
 }
 
-#add-todo-form legend {
+#todo-add-form legend {
     float: left;
 }
 
-#add-todo-form input[type="radio"] {
+#todo-add-form input[type="radio"] {
     opacity: 0;
     position: fixed;
     width: 0;
 }
 
-#add-todo-form input[type="radio"] + label{
+#todo-add-form input[type="radio"] + label{
     border-radius: 8px;
     padding: 4px 12px;
 }
 
-#add-todo-priority-low + label {
+#todo-add-priority-low + label {
     border: 2px solid green;
     color: green;
 }
 
-#add-todo-priority-med + label {
+#todo-add-priority-med + label {
     border: 2px solid orange;
     color: orange;
 }
 
-#add-todo-priority-high + label {
+#todo-add-priority-high + label {
     border: 2px solid red;
     color: red;
 }
 
-#add-todo-form input[type="radio"]:checked + label{
+#todo-add-form input[type="radio"]:checked + label{
     color: white;
 }
 
-#add-todo-priority-low:checked + label {
+#todo-add-priority-low:checked + label {
     background-color: green;;
 }
 
-#add-todo-priority-med:checked + label {
+#todo-add-priority-med:checked + label {
     background-color: orange;
 }
 
-#add-todo-priority-high:checked + label {
+#todo-add-priority-high:checked + label {
     background-color: red;
 }
 
-#add-todo-form input[type="radio"]:focus + label{
+#todo-add-form input[type="radio"]:focus + label{
     border: 2px solid white;
 }
 
-#add-todo-form input[type="radio"]:hover + label{
+#todo-add-form input[type="radio"]:hover + label{
     cursor: pointer;
 }
 
-#add-todo-form-footer {
+#todo-add-form-footer {
     display: flex;
     align-items: center;
 }
 
-#add-todo-btn {
+#todo-add-btn {
     font-size: 1.2rem;
     padding: 4px 12px;
     margin-left: auto;
