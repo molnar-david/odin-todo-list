@@ -20,15 +20,15 @@
             </div>
             <h2>Projects</h2>
             <div class="btn-container">
-                <button class="project-btn"><i class="fa-solid fa-list"></i><span>Project 1</span><i class="fa-solid fa-trash delete-project-btn"></i></button>
-                <button class="project-btn"><i class="fa-solid fa-list"></i><span>Project 2</span><i class="fa-solid fa-trash delete-project-btn"></i></button>
-                <div id="add-project-container">
+                <button class="project-btn"><i class="fa-solid fa-list"></i><span>Project 1</span><i class="fa-solid fa-trash project-delete-btn"></i></button>
+                <button class="project-btn"><i class="fa-solid fa-list"></i><span>Project 2</span><i class="fa-solid fa-trash project-delete-btn"></i></button>
+                <div id="project-add-container">
                     <div>Add new project:</div>
-                    <div id="add-project-input-container">
-                        <input type="text" id="add-project-title" placeholder="Title">
+                    <div id="project-add-input-container">
+                        <input type="text" id="project-add-title" placeholder="Title">
                         <button id="confirm-project-btn"></button>
                     </div>
-                    <div id="add-project-error-msg" class="error-msg hidden"></div>
+                    <div id="project-add-error-msg" class="error-msg hidden"></div>
                 </div>
             </div>
         </nav>
@@ -74,32 +74,32 @@
                 <textarea class="todo-edit-description hidden"></textarea>
                 <button class="todo-cancel-edit-btn hidden">CANCEL</button>
             </li>
-            <form id="add-todo-form">
+            <form id="todo-add-form">
                 <div>Add new task:</div>
-                <input type="text" id="add-todo-title" name="add-todo-title" placeholder="Title (required)" required>
-                <textarea id="add-todo-description" name="add-todo-description" rows="10" placeholder="Description (optional)"></textarea>
+                <input type="text" id="todo-add-title" name="todo-add-title" placeholder="Title (required)" required>
+                <textarea id="todo-add-description" name="todo-add-description" rows="10" placeholder="Description (optional)"></textarea>
                 <div>
-                    <label for="add-todo-due-date">Due date (required):</label>
-                    <input type="date" id="add-todo-due-date" name="add-todo-due-date" required>
+                    <label for="todo-add-due-date">Due date (required):</label>
+                    <input type="date" id="todo-add-due-date" name="todo-add-due-date" required>
                 </div>
                 <fieldset>
                     <legend>Priority (required):</legend>
                     <div>
-                        <input type="radio" id="add-todo-priority-low" name="add-todo-priority" value="low" required>
-                        <label for="add-todo-priority-low">LOW</label>
+                        <input type="radio" id="todo-add-priority-low" name="todo-add-priority" value="low" required>
+                        <label for="todo-add-priority-low">LOW</label>
                     </div>
                     <div>
-                        <input type="radio" id="add-todo-priority-med" name="add-todo-priority" value="med">
-                        <label for="add-todo-priority-med">MEDIUM</label>
+                        <input type="radio" id="todo-add-priority-med" name="todo-add-priority" value="med">
+                        <label for="todo-add-priority-med">MEDIUM</label>
                     </div>
                     <div>
-                        <input type="radio" id="add-todo-priority-high" name="add-todo-priority" value="high">
-                        <label for="add-todo-priority-high">HIGH</label>
+                        <input type="radio" id="todo-add-priority-high" name="todo-add-priority" value="high">
+                        <label for="todo-add-priority-high">HIGH</label>
                     </div>
                 </fieldset>
-                <div id="add-todo-form-footer">
-                    <div id="add-todo-error-msg" class="error-msg hidden">Please fill out all required fields</div>
-                    <input type="button" id="add-todo-btn" value="Add todo"></button>
+                <div id="todo-add-form-footer">
+                    <div id="todo-add-error-msg" class="error-msg hidden">Please fill out all required fields</div>
+                    <input type="button" id="todo-add-btn" value="Add todo"></button>
                 </div>
             </form>
         </ul>

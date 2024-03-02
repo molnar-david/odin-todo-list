@@ -1,7 +1,8 @@
 import { parse } from 'date-fns';
 import { min } from 'date-fns/min'
 import Todo from './todo.js'
-import loadTodos, { showAndReturnTodo, showAllTodos, showTodosToday, showTodosThisWeek, showTodosForProject } from './ui.js';
+import loadData, { showAndReturnTodo, showAllTodos, showTodosToday, showTodosThisWeek, showTodosForProject, reloadTodos } from './ui.js';
+import { saveDataToLocalStorage } from './storage.js';
 
 function deleteTodo(todo) {
     const todoDivs = Array.from(document.getElementsByClassName("todo"));
@@ -27,6 +28,8 @@ function deleteTodo(todo) {
             }
         }
     });
+
+    saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
 }
 
 function initContentBtn(btn) {
@@ -45,6 +48,8 @@ function initContentBtn(btn) {
                 todoItem.toggleChecked();
             }
         });
+
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
     });
 
     const todoDetailsBtn = Array.from(btn.getElementsByClassName("todo-details-btn"))[0];
@@ -106,13 +111,15 @@ function initContentBtn(btn) {
             title.textContent = newTitle;
             dueDate.textContent = newDueDate;
             description.textContent = newDescription;
+
+            saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
         }
     });
 
     const todoDeleteBtn = Array.from(btn.getElementsByClassName("todo-delete-btn"))[0];
     todoDeleteBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        deleteTodo(Todo.createTodoFromDiv(btn));
+        deleteTodo(Todo.fromDiv(btn));
     });
 
     const todoCancelEditBtn = Array.from(btn.getElementsByClassName("todo-cancel-edit-btn"))[0];
@@ -128,38 +135,15 @@ function initContentBtns() {
     todos.forEach((todo) => initContentBtn(todo));
 }
 
-function reloadTodos() {
-    switch (currentProject) {
-        case "":
-            switch (document.getElementById("project-title").textContent) {
-                case "All":
-                default:
-                    showAllTodos(todoList);
-                    break;
-                case "Today":
-                    showTodosToday(todoList);
-                    break;
-                case "This week":
-                    showTodosThisWeek(todoList);
-                    break;
-            }
-            break;
-        default:
-            showTodosForProject(todoList, currentProject);
-            break;
-    }
-
-    initContentBtns();
-}
-
 function initProjectBtn(btn) {
     btn.addEventListener("click", () => {
         currentProject = btn.textContent;
         showTodosForProject(todoList, currentProject);
         initContentBtns();
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
     });
 
-    Array.from(btn.getElementsByClassName("delete-project-btn"))[0].addEventListener("click", (e) => {
+    Array.from(btn.getElementsByClassName("project-delete-btn"))[0].addEventListener("click", (e) => {
         e.stopPropagation();
 
         for (let i = 0; i < todoList.length; i++) {
@@ -172,21 +156,26 @@ function initProjectBtn(btn) {
         
         if (btn.textContent === currentProject) {
             currentProject = "";
-            reloadTodos();
+            currentView = "All";
+            reloadTodos(todoList, currentProject, currentView);
+            initContentBtns();
         }
+
+        projectList.splice(projectList.indexOf(btn.textContent), 1);
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
     });
 }
 
 function addProject() {
-    const addProjectTitle = document.getElementById("add-project-title");
-    const addProjectErrorMsg = document.getElementById("add-project-error-msg");
+    const projectAddTitle = document.getElementById("project-add-title");
+    const projectAddErrorMsg = document.getElementById("project-add-error-msg");
 
     // Duplicates not allowed
-    if (Array.from(document.getElementsByClassName("project-btn")).some((btn) => btn.textContent === addProjectTitle.value)) {
-        addProjectErrorMsg.classList.remove("hidden"); 
-        addProjectErrorMsg.textContent = "Please enter a unique title";
-    } else if (addProjectTitle.value.trim()) {
-        addProjectErrorMsg.classList.add("hidden");
+    if (Array.from(document.getElementsByClassName("project-btn")).some((btn) => btn.textContent === projectAddTitle.value)) {
+        projectAddErrorMsg.classList.remove("hidden"); 
+        projectAddErrorMsg.textContent = "Please enter a unique title";
+    } else if (projectAddTitle.value.trim()) {
+        projectAddErrorMsg.classList.add("hidden");
 
         const newProjectBtn = document.createElement("button");
         newProjectBtn.classList.add("project-btn");
@@ -196,12 +185,12 @@ function addProject() {
         projectIcon.classList.add("fa-list");
 
         const projectTitleSpan = document.createElement("span");
-        projectTitleSpan.textContent = addProjectTitle.value;
+        projectTitleSpan.textContent = projectAddTitle.value;
 
         const deleteIcon = document.createElement("i");
         deleteIcon.classList.add("fa-solid");
         deleteIcon.classList.add("fa-trash");
-        deleteIcon.classList.add("delete-project-btn");
+        deleteIcon.classList.add("project-delete-btn");
 
         newProjectBtn.appendChild(projectIcon);
         newProjectBtn.appendChild(projectTitleSpan);
@@ -209,43 +198,52 @@ function addProject() {
         initProjectBtn(newProjectBtn);
 
         const btnContainer = Array.from(document.getElementsByClassName("btn-container")).at(-1);
-        const addProjectContainer = document.getElementById("add-project-container");
-        btnContainer.insertBefore(newProjectBtn, addProjectContainer);
+        const projectAddContainer = document.getElementById("project-add-container");
+        btnContainer.insertBefore(newProjectBtn, projectAddContainer);
+
+        projectList.push(projectAddTitle.value);
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
 
         // Clear input
-        addProjectTitle.value = "";
+        projectAddTitle.value = "";
 
         // Whitespace only title not allowed
     } else {
-        addProjectErrorMsg.classList.remove("hidden");
-        addProjectErrorMsg.textContent = "Please enter a title";
-        addProjectTitle.value = "";
+        projectAddErrorMsg.classList.remove("hidden");
+        projectAddErrorMsg.textContent = "Please enter a title";
+        projectAddTitle.value = "";
     }
 
     // Focus on the add title input even when the confirm button is pressed
-    setTimeout(() => addProjectTitle.focus(), 0);
+    setTimeout(() => projectAddTitle.focus(), 0);
 }
 
 function initSidebarBtns() {
     const allBtn = document.getElementById("all-btn");
     allBtn.addEventListener("click", () => {
         currentProject = "";
+        currentView = "All";
         showAllTodos(todoList);
         initContentBtns();
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
     });
 
     const todayBtn = document.getElementById("today-btn");
     todayBtn.addEventListener("click", () => {
         currentProject = "";
+        currentView = "Today";
         showTodosToday(todoList);
         initContentBtns();
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
     });
 
     const weekBtn = document.getElementById("week-btn");
     weekBtn.addEventListener("click", () => {
         currentProject = "";
+        currentView = "This week";
         showTodosThisWeek(todoList)
         initContentBtns();
+        saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
     });
 
     const projectBtns = Array.from(document.getElementsByClassName("project-btn"));
@@ -257,36 +255,36 @@ function initSidebarForm() {
     confirmProjectBtn.addEventListener("mousedown", (e) => addProject());
 
     // Allow project to be added by pressing "Enter"
-    const addProjectTitle = document.getElementById("add-project-title");
-    addProjectTitle.addEventListener("keydown", (e) => {
+    const projectAddTitle = document.getElementById("project-add-title");
+    projectAddTitle.addEventListener("keydown", (e) => {
         if (e.key === "Enter") addProject();
     });
 }
 
 function initContentForm() {
-    const addTodoBtn = document.getElementById("add-todo-btn");
-    addTodoBtn.addEventListener("click", (e) => {
+    const todoAddBtn = document.getElementById("todo-add-btn");
+    todoAddBtn.addEventListener("click", (e) => {
         e.preventDefault();
 
-        const addTodoTitle = document.getElementById("add-todo-title");
-        const newTodoTitle = addTodoTitle.value;
+        const todoAddTitle = document.getElementById("todo-add-title");
+        const newTodoTitle = todoAddTitle.value;
 
-        const addTodoDescription = document.getElementById("add-todo-description")
-        const newTodoDescription = addTodoDescription.value;
+        const todoAddDescription = document.getElementById("todo-add-description")
+        const newTodoDescription = todoAddDescription.value;
 
-        const addTodoDueDate = document.getElementById("add-todo-due-date");
+        const todoAddDueDate = document.getElementById("todo-add-due-date");
         let newTodoDueDate;
-        if (addTodoDueDate.value) {
-            newTodoDueDate = parse(addTodoDueDate.value, "yyyyyy-MM-dd", new Date());
+        if (todoAddDueDate.value) {
+            newTodoDueDate = parse(todoAddDueDate.value, "yyyyyy-MM-dd", new Date());
         }
         let newTodoPriority;
 
-        let addTodoPriority;
-        const addTodoPriorities = Array.from(document.querySelectorAll("input[name=add-todo-priority"));
-        addTodoPriorities.forEach((priority) => {
+        let todoAddPriority;
+        const todoAddPriorities = Array.from(document.querySelectorAll("input[name=todo-add-priority"));
+        todoAddPriorities.forEach((priority) => {
             if (priority.checked) {
                 newTodoPriority = priority.value;
-                addTodoPriority = priority;
+                todoAddPriority = priority;
             }
         });
 
@@ -300,19 +298,21 @@ function initContentForm() {
             newTodoId = "0";
         }
 
-        const addTodoErrorMsg = document.getElementById("add-todo-error-msg");
+        const todoAddErrorMsg = document.getElementById("todo-add-error-msg");
         if (newTodoTitle && newTodoDueDate && newTodoPriority) {
             const newTodo = new Todo(newTodoTitle, newTodoDescription, newTodoDueDate, newTodoPriority, newTodoChecked, newtodoProject, newTodoId);
             todoList.push(newTodo);
             initContentBtn(showAndReturnTodo(newTodo));
-            addTodoErrorMsg.classList.add("hidden");
+            todoAddErrorMsg.classList.add("hidden");
 
-            addTodoTitle.value = "";
-            addTodoDescription.value = "";
-            addTodoDueDate.value = "";
-            addTodoPriority.checked = false;
+            todoAddTitle.value = "";
+            todoAddDescription.value = "";
+            todoAddDueDate.value = "";
+            todoAddPriority.checked = false;
+
+            saveDataToLocalStorage(todoList, projectList, currentProject, currentView);
         } else {
-            addTodoErrorMsg.classList.remove("hidden");
+            todoAddErrorMsg.classList.remove("hidden");
         }
     });
 }
@@ -324,6 +324,9 @@ function initBtns() {
     initContentForm();
 }
 
-let todoList = loadTodos();
-initBtns();
+let todoList = [];
+let projectList = [];
 let currentProject = "";
+let currentView = "All";
+[currentProject, currentView] = loadData(todoList, projectList);
+initBtns();

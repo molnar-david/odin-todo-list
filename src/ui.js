@@ -1,12 +1,94 @@
 import { format, isToday, isThisWeek } from 'date-fns';
 import Todo from './todo.js';
+import storageAvailable from './storage.js';
 
-export default function loadTodos() {
+export function reloadTodos(todoList, currentProject, currentView) {
+    switch (currentProject) {
+        case "":
+            switch (currentView) {
+                case "All":
+                default:
+                    showAllTodos(todoList);
+                    break;
+                case "Today":
+                    showTodosToday(todoList);
+                    break;
+                case "This week":
+                    showTodosThisWeek(todoList);
+                    break;
+            }
+            break;
+        default:
+            showTodosForProject(todoList, currentProject);
+            break;
+    }
+}
+
+export function showProjects(projectList) {
+    const projects = Array.from(document.getElementsByClassName("project-btn"));
+    projects.forEach((project) => project.remove());
+
+    const btnContainer = Array.from(document.getElementsByClassName("btn-container")).at(-1);
+    const projectAddContainer = document.getElementById("project-add-container");
+
+    projectList.forEach((project) => {
+        const projectBtn = document.createElement("button");
+        projectBtn.classList.add("project-btn");
+        
+        const projectIcon = document.createElement("i");
+        projectIcon.classList.add("fa-solid");
+        projectIcon.classList.add("fa-list");
+
+        const projectSpan = document.createElement("span");
+        projectSpan.textContent = project;
+
+        const deleteIcon = document.createElement("i");
+        deleteIcon.classList.add("fa-solid");
+        deleteIcon.classList.add("fa-trash");
+        deleteIcon.classList.add("project-delete-btn");
+
+        projectBtn.appendChild(projectIcon);
+        projectBtn.appendChild(projectSpan);
+        projectBtn.appendChild(deleteIcon);
+
+        btnContainer.insertBefore(projectBtn, projectAddContainer);
+    });
+}
+
+export function loadStorage(todoList, projectList) {
+    console.log(window.localStorage);
+    const todos = JSON.parse(window.localStorage.getItem("todos"));
+    todos.forEach((todo) => todoList.push(Todo.fromJSON(todo)));
+    showAllTodos(todoList);
+
+    const projects = JSON.parse(window.localStorage.getItem("projects"));
+    projects.forEach((project) => projectList.push(project));
+    showProjects(projectList);
+
+    const currentProject = JSON.parse(window.localStorage.getItem("currentProject"));
+    const currentView = JSON.parse(window.localStorage.getItem("currentView"));
+    reloadTodos(todoList, currentProject, currentView);
+
+    return [currentProject, currentView];
+}
+
+export function loadDefaults(todoList, projectList) {
     const todos = Array.from(document.getElementsByClassName("todo"));
-    let todoList = [];
-    todos.forEach((todo) => todoList.push(Todo.createTodoFromDiv(todo)));
+    todos.forEach((todo) => todoList.push(Todo.fromDiv(todo)));
 
-    return todoList;
+    const projects = Array.from(document.getElementsByClassName("project-btn"));
+    projects.forEach((project) => projectList.push(project.textContent));
+
+    return ["", "All"];
+}
+
+export default function loadData(todoList, projectList) {
+    // window.localStorage.clear();
+    if (storageAvailable("localStorage") && window.localStorage.length !== 0) {
+        return loadStorage(todoList, projectList);
+    } else {
+        return loadDefaults(todoList, projectList);
+    }
 }
 
 export function removeAllTodos() {
@@ -82,8 +164,8 @@ export function showAndReturnTodo(todo) {
     newTodo.appendChild(cancelEditBtn);
 
     const content = document.getElementById("content");
-    const addTodoForm = document.getElementById("add-todo-form");
-    content.insertBefore(newTodo, addTodoForm);
+    const todoAddForm = document.getElementById("todo-add-form");
+    content.insertBefore(newTodo, todoAddForm);
 
     return newTodo;
 }
@@ -93,7 +175,6 @@ export function showAllTodos(todoList) {
     removeAllTodos();
 
     todoList.forEach((todo) => showAndReturnTodo(todo));
-    return;
 }
 
 export function showTodosToday(todoList) {
@@ -105,7 +186,6 @@ export function showTodosToday(todoList) {
             showAndReturnTodo(todo);
         }
     });
-    return;
 }
 
 export function showTodosThisWeek(todoList) {
@@ -117,7 +197,6 @@ export function showTodosThisWeek(todoList) {
             showAndReturnTodo(todo);
         }
     });
-    return;
 }
 
 export function showTodosForProject(todoList, project) {
@@ -129,5 +208,4 @@ export function showTodosForProject(todoList, project) {
             showAndReturnTodo(todo);
         }
     })
-    return;
 }
