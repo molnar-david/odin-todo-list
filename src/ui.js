@@ -96,7 +96,7 @@ export function removeAllTodos() {
     todos.forEach((todo) => todo.remove());
 }
 
-export function showAndReturnTodo(todo) {
+export function showTodo(todo) {
     const newTodo = document.createElement("li");
     newTodo.classList.add("todo");
     newTodo.classList.add(todo.priority);
@@ -166,15 +166,13 @@ export function showAndReturnTodo(todo) {
     const content = document.getElementById("content");
     const todoAddForm = document.getElementById("todo-add-form");
     content.insertBefore(newTodo, todoAddForm);
-
-    return newTodo;
 }
 
 export function showAllTodos(todoList) {
     document.getElementById("project-title").textContent = "All";
     removeAllTodos();
 
-    todoList.forEach((todo) => showAndReturnTodo(todo));
+    todoList.forEach((todo) => showTodo(todo));
 }
 
 export function showTodosToday(todoList) {
@@ -183,7 +181,7 @@ export function showTodosToday(todoList) {
 
     todoList.forEach((todo) => {
         if (isToday(todo.dueDate)) {
-            showAndReturnTodo(todo);
+            showTodo(todo);
         }
     });
 }
@@ -194,7 +192,7 @@ export function showTodosThisWeek(todoList) {
 
     todoList.forEach((todo) => {
         if (isThisWeek(todo.dueDate)) {
-            showAndReturnTodo(todo);
+            showTodo(todo);
         }
     });
 }
@@ -205,7 +203,7 @@ export function showTodosForProject(todoList, project) {
 
     todoList.forEach((todo) => {
         if (todo.project === project) {
-            showAndReturnTodo(todo);
+            showTodo(todo);
         }
     })
 }

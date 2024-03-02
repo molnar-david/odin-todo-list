@@ -1,7 +1,7 @@
 import { parse } from 'date-fns';
 import { min } from 'date-fns/min'
 import Todo from './todo.js'
-import loadData, { showAndReturnTodo, showAllTodos, showTodosToday, showTodosThisWeek, showTodosForProject, reloadTodos } from './ui.js';
+import loadData, { showAllTodos, showTodosToday, showTodosThisWeek, showTodosForProject, reloadTodos } from './ui.js';
 import { saveDataToLocalStorage } from './storage.js';
 
 function deleteTodo(todo) {
@@ -302,7 +302,9 @@ function initContentForm() {
         if (newTodoTitle && newTodoDueDate && newTodoPriority) {
             const newTodo = new Todo(newTodoTitle, newTodoDescription, newTodoDueDate, newTodoPriority, newTodoChecked, newtodoProject, newTodoId);
             todoList.push(newTodo);
-            initContentBtn(showAndReturnTodo(newTodo));
+            reloadTodos(todoList, currentProject, currentView);
+            initContentBtns();
+
             todoAddErrorMsg.classList.add("hidden");
 
             todoAddTitle.value = "";
